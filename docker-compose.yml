@@ -1,8 +1,8 @@
 version: '3.5'
 services:
   postgres:
-    image: 'postgres:12.3'
     container_name: ${PROJECT_NAME}-postgres
+    image: 'postgres:12.3'
     volumes:
       - postgres_data:/var/lib/postgresql/data:Z
     env_file:
@@ -12,6 +12,21 @@ services:
     networks:
       - django-app
     restart: always
+
+  django: 
+    container_name: ${PROJECT_NAME}-django
+    build: 
+      context: ./
+      dockerfile: ./docker/django/Dockerfile
+    volumes:
+      - ./hellodjango:/opt/hellodjango
+      - /data/hellodjango:/data
+    env_file:
+      - ./.env
+    ports:
+      - 5000:5000
+    networks:
+      - django-app
 
 volumes:
   postgres_data: {}
