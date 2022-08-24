@@ -13,5 +13,8 @@ WORKDIR /opt/hellodjango/
 
 RUN chmod +x /opt/hellodjango/run.sh
 
+RUN /opt/venv-hellodjango/bin/pip install psycopg2
+RUN /opt/venv-hellodjango/bin/pip install environ
+
 EXPOSE 5000
 CMD ["/opt/hellodjango/run.sh"]
